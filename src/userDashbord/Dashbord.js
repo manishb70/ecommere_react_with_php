@@ -9,7 +9,7 @@ const DashboardSection = () => {
   
 
 
-<div className="bg-gray-100 md:mx-6 mx-3 mt-5">
+<div className="bg-gray-50 md:mx-6 mx-3 mt-5">
 
 
 

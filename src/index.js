@@ -20,6 +20,9 @@ import Checkout from './component/checkout';
 import Receipt from './component/Receipt';
 import DashboardSection from './userDashbord/Dashbord';
 import UserSidebar from './userDashbord/UserSidebar';
+import Dashbord from './admin/Dashboard/Dashbord';
+import DashboardMain from './admin/DashboardMain';
+
 
 
 
@@ -43,7 +46,8 @@ ReactDom.render(
           <Route path="/cart/checkout" element={<Checkout />} />
           <Route path="/cart/checkout/receipt" element={<Receipt />} />
           <Route path="/dashboard" element={<UserSidebar />} />
-          {/* <Route path="/admin" element={<Dashboard />} /> */}
+          <Route path="/admin" element={<DashboardMain />} />
+
 
 
         </Route>

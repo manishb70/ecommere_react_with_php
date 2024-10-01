@@ -15,6 +15,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     // Function to toggle dropdowns
     const toggleDropdown = (dropdown) => {
         setOpenDropdown(openDropdown === dropdown ? null : dropdown);
+        
     };
 
     return (

@@ -9,7 +9,7 @@ function Dashbord() {
         <>
 
 
-                    <Sidebar />
+            {/* <Sidebar /> */}
 
             <div className="p-6 bg-gray-100">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -22,7 +22,7 @@ function Dashbord() {
                         <p className="mt-4 text-2xl">&#x20b9;52,340</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-lg font-semibold">Total Order</h2>
+                        <h2 className="text-lg font-semibold">New Order</h2>
                         <p className="mt-4 text-2xl">8,120</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -42,21 +42,21 @@ function Dashbord() {
                                 <h4 className="font-semibold text-gray-800">Order #12345</h4>
                                 <p className="text-gray-600">Shipped on 25th Sep 2023</p>
                             </div>
-                            <p className="text-gray-700">$125.00</p>
+                            <p className="text-gray-700">&#x20b9;125.00</p>
                         </li>
                         <li className="flex justify-between">
                             <div>
                                 <h4 className="font-semibold text-gray-800">Order #12346</h4>
                                 <p className="text-gray-600">Processing</p>
                             </div>
-                            <p className="text-gray-700">$85.50</p>
+                            <p className="text-gray-700">&#x20b9;85.50</p>
                         </li>
                         <li className="flex justify-between">
                             <div>
                                 <h4 className="font-semibold text-gray-800">Order #12347</h4>
                                 <p className="text-gray-600">Delivered on 20th Sep 2023</p>
                             </div>
-                            <p className="text-gray-700">$199.99</p>
+                            <p className="text-gray-700">&#x20b9;199.99</p>
                         </li>
                     </ul>
                 </div>

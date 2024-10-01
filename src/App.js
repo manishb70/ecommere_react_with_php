@@ -26,7 +26,7 @@ import UserSidebar from './userDashbord/UserSidebar'
 import OrderSection from './userDashbord/OrderSection';
 import UserProfile from './userDashbord/UserProfile'
 import UserSetting from './userDashbord/UserSetting'
-import Receipt from './component/Receipt';
+// import Receipt from './component/Receipt';
 import DashboardMain from './admin/DashboardMain';
 import Home from './component/home';
 
@@ -77,7 +77,7 @@ function App() {
       <Login />
 
 
-      <Receipt />
+      {/* <Receipt /> */}
 
 
 

@@ -12,7 +12,7 @@ const Receipt = () => {
   const total = subtotal + tax;
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 my-10 mx-10 border-t">
       <h1 className="text-xl font-bold text-center">Bhatia Emporium</h1>
       <p className="text-center text-gray-600">Thank you for your purchase!</p>
       

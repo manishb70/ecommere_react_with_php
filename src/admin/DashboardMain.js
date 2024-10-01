@@ -4,16 +4,21 @@ import Sidebar from './sidebar';
 import Topbar from './Topbar';
 import MainContent from './MainContent';
 import { useState } from 'react';
+import Dashbord from './Dashboard/Dashbord';
+import AddCategory from './Category/addCategory';
+import CategoryList from './Category/categoryList';
+
+
 
 function DashboardMain() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
     return (
-        <div className="flex">
+        <div className="flex max-w-8xl mx-auto">
             {/* Sidebar */}
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 

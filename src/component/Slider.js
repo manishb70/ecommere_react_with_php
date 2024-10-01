@@ -1,55 +1,89 @@
+import React, { useState, useEffect } from 'react';
 import FridgeMat from '../sliderImg/fridge_mat.webp';
 import MattressCover from '../sliderImg/mattress_cover.webp';
 import TableCover from '../sliderImg/table-cover.webp';
 import WashingMachineCover from '../sliderImg/washing_machine_cover.webp';
 
-function Slider() {
+const images = [
+    { src: FridgeMat, alt: 'Fridge Mat' },
+    { src: MattressCover, alt: 'Mattress Cover' },
+    { src: TableCover, alt: 'Table Cover' },
+    { src: WashingMachineCover, alt: 'Washing Machine Cover' },
+];
+
+const Slider = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+
+    const nextSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    };
+
+    useEffect(() => {
+        const intervalId = setInterval(nextSlide, 5000); // Change slide every 3 seconds
+        return () => clearInterval(intervalId); // Clean up the interval on unmount
+    }, []);
+
     return (
-        <div id="default-carousel" className="mx-auto relative w-full" data-carousel="slide">
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-                {/* Item 1 */}
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={FridgeMat} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Fridge Mat" />
-                </div>
-                {/* Item 2 */}
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={MattressCover} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Mattress Cover" />
-                </div>
-                {/* Item 3 */}
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={TableCover} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Table Cover" />
-                </div>
-                {/* Item 4 */}
-                <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={WashingMachineCover} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Washing Machine Cover" />
+        <div className="relative w-full max-w-8xl mx-auto overflow-hidden">
+            <div className="relative h-48 md:h-96">
+                <div className="relative h-48 md:h-96 flex transition-transform duration-700" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                    {images.map((image, index) => (
+                        <div key={index} className="flex-shrink-0 w-full">
+                            <img
+                                src={image.src}
+                                alt={image.alt}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
-            {/* Slider indicators */}
-            <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                <button type="button" className="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-                <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+            <div className="absolute z-30 flex justify-between top-1/2 w-full transform -translate-y-1/2 md:px-7 px-3">
+                <button
+                    onClick={prevSlide}
+                    className="bg-white p-2 rounded-full shadow-md focus:outline-none"
+                >
+                    <svg
+                        className="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button
+                    onClick={nextSlide}
+                    className="bg-white p-2 rounded-full shadow-md focus:outline-none"
+                >
+                    <svg
+                        className="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
             </div>
-            {/* Slider controls */}
-            <button type="button" className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white-50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
-                    </svg>
-                    <span className="sr-only">Previous</span>
-                </span>
-            </button>
-            <button type="button" className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white-50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
-                    </svg>
-                    <span className="sr-only">Next</span>
-                </span>
-            </button>
+            <div className="absolute flex space-x-2 bottom-5 left-1/2 transform -translate-x-1/2">
+                {images.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentIndex(index)}
+                        className={`w-3 h-3 rounded-full ${index === currentIndex ? 'bg-blue-500' : 'bg-gray-300'}`}
+                    ></button>
+                ))}
+            </div>
         </div>
     );
-}
+};
 
 export default Slider;
