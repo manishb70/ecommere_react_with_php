@@ -79,7 +79,6 @@ function AddProdcut() {
                 </section>
 
             </div>
-
         </>
 
 
