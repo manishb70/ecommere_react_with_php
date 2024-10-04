@@ -1,6 +1,19 @@
 import { Link } from 'react-router-dom';
 import Layout from '../pages/Layout'
 import { useState } from 'react';
+import { SlUser } from "react-icons/sl";
+import { CiHeart } from "react-icons/ci";
+import { FiShoppingCart } from "react-icons/fi";
+import { CiShoppingCart } from "react-icons/ci";
+import { PiShoppingCartSimple } from "react-icons/pi";
+import { FaRegHeart } from "react-icons/fa";
+import { IoMdHeartEmpty } from "react-icons/io";
+
+
+
+
+
+
 
 
 function Navbar() {
@@ -49,12 +62,25 @@ function Navbar() {
                         {/* <!-- Main Navigation Links (Hidden on mobile) --> */}
                         {/* <!-- Icons Section --> */}
                         <div className="flex items-center space-x-4">
-                            <Link
+                            <div className='flex flex-col justify-center items-center'>
+                                <Link
 
-                                to="/login"
-                                className="text-gray-600 hover:text-gray-800 md:block text-xl hidden"><i className="fas fa-user"></i></Link>
-                            <Link to="/wishlist" className="text-gray-600 hover:text-gray-800 text-xl md:block hidden"><i className="fas fa-heart"></i></Link>
-                            <Link to={"/cart"} className="text-gray-600 hover:text-gray-800 md:block text-xl" ><i className="fas fa-shopping-cart"></i></Link>
+                                    to="/login"
+                                    className="text-gray-600 hover:text-gray-800 md:block text-lg hidden"><SlUser /></Link>
+                                <span className='text-xs font-semibold md:block hidden'>Profile</span>
+
+                            </div>
+                            <div className='flex flex-col justify-center items-center'>
+
+                                <Link to="/wishlist" className="text-gray-600 hover:text-gray-800 text-xl md:block hidden"><IoMdHeartEmpty />
+                                </Link>
+                                <span className='text-xs font-semibold md:block hidden'>Wishlist</span>
+                            </div>
+                            <div className='flex flex-col justify-center items-center'>
+                                <Link to={"/cart"} className="text-gray-600 hover:text-gray-800 md:block text-xl" ><PiShoppingCartSimple />
+                                </Link>
+                                <span className='text-xs font-semibold md:block hidden'>Cart</span>
+                            </div>
                         </div>
                         {/* <!-- Mobile Hamburger Icon --> */}
                         <button className="lg:hidden text-gray-600 hover:text-gray-800" onClick={toggleMenu}>
@@ -242,12 +268,24 @@ function Navbar() {
                         </ul>
                         <hr className='my-4' />
                         <div className="flex items-center justify-center space-x-10 pb-2">
-                            <Link
+                            {/* <Link to="/login"
+                                className="text-gray-600 hover:text-gray-800 text-2xl"><SlUser /></Link> */}
+                                <div className='flex flex-col justify-center items-center'>
+                                <Link
 
-                                to="/login"
-                                className="text-gray-600 hover:text-gray-800 text-2xl"><i className="fas fa-user"></i></Link>
-                            <Link to="/wishlist" className="text-gray-600 hover:text-gray-800 text-2xl"><i className="fas fa-heart"></i></Link>
-                            <Link to={"/cart"} className="text-gray-600 hover:text-gray-800 text-2xl" ><i className="fas fa-shopping-cart"></i></Link>
+                                    to="/login"
+                                    className="text-gray-600 hover:text-gray-800 md:block text-2xl"><SlUser /></Link>
+                                <span className='text-xs font-semibold md:block'>Profile</span>
+
+                            </div>
+                            {/* <Link to="/wishlist" className="text-gray-600 hover:text-gray-800 text-3xl"><IoMdHeartEmpty /></Link> */}
+                            <div className='flex flex-col justify-center items-center'>
+
+                                <Link to="/wishlist" className="text-gray-600 hover:text-gray-800 text-2xl md:block"><IoMdHeartEmpty />
+                                </Link>
+                                <span className='text-xs font-semibold md:block'>Wishlist</span>
+                            </div>
+                            {/* <Link to={"/cart"} className="text-gray-600 hover:text-gray-800 text-2xl" ><i className="fas fa-shopping-cart"></i></Link> */}
                         </div>
                     </div>
                 </nav>

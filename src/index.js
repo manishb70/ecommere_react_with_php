@@ -22,6 +22,8 @@ import DashboardSection from './userDashbord/Dashbord';
 import UserSidebar from './userDashbord/UserSidebar';
 import Dashbord from './admin/Dashboard/Dashbord';
 import DashboardMain from './admin/DashboardMain';
+import Error from './component/Error';
+import ForgotPassword from './component/ForgetPassword';
 
 
 
@@ -47,6 +49,9 @@ ReactDom.render(
           <Route path="/cart/checkout/receipt" element={<Receipt />} />
           <Route path="/dashboard" element={<UserSidebar />} />
           <Route path="/admin" element={<DashboardMain />} />
+          <Route path="*" element={<Error/>} />
+          <Route path="/forgetPassword" element={<ForgotPassword/>} />
+
 
 
 

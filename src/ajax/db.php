@@ -6,10 +6,11 @@
 $con = mysqli_connect(
     "localhost",
     "root",
-    "Algo@123",
+    "root",
     "ecommerce_model"
 );
 
+// set id and pssword Antosh done ok 
 
 
 if (mysqli_connect_error()) {

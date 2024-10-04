@@ -47,7 +47,7 @@ const ProductOverview = () => {
                     <h2 className="text-3xl font-semibold mb-4">Frosted Sheer</h2>
                     {/* <div className='flex gap-x-2 mt-5'>
                         <p className="text-lg font-bold text-gray-900 mb-4">Price : &#8377;399</p>
-                        <p class="text-lg font-medium text-gray-500 line-through dark:text-gray-300">&#8377;499</p>
+                        <p class="text-lg font-medium text-gray-500 line-through">&#8377;499</p>
                     </div> */}
 
                     {/* <div>

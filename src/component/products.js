@@ -8,7 +8,7 @@ function Products(props) {
         <>
 
             <div
-                className="mb-5 lg:w-64 w-44 m-auto transform overflow-hidden rounded-md bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
+                className="mb-5 lg:w-64 w-44 m-auto transform overflow-hidden rounded-md bg-white shadow-md duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
 
 
 
@@ -21,12 +21,12 @@ function Products(props) {
                     src={props.productImages} alt="Product Image" />
                     </Link>
                 <div className="p-4">
-                        <p className="text-xs font-semibold text-gray-500 dark:text-white mb-1">{props.categoryName}</p>
-                    <h2 className="mb-2 md:text-base text-sm  dark:text-white text-gray-900">{props.productName}</h2>
-                    {/* <p className="mb-2 text-xs dark:text-gray-300 text-gray-700">{props.productDescription}</p> */}
+                        <p className="text-xs font-semibold text-gray-500 mb-1">{props.categoryName}</p>
+                    <h2 className="mb-2 md:text-base text-sm  text-gray-900">{props.productName}</h2>
+                    {/* <p className="mb-2 text-xs text-gray-700">{props.productDescription}</p> */}
                     <div className="flex items-center">
-                        <p className="mr-2 text-md font-semibold text-gray-900 dark:text-white">&#8377;{props.discountPrice}</p>
-                        <p className="text-md  font-medium text-gray-500 line-through dark:text-gray-300">&#8377;{props.actualPrice}
+                        <p className="mr-2 text-md font-semibold text-gray-900">&#8377;{props.discountPrice}</p>
+                        <p className="text-md  font-medium text-gray-500 line-through">&#8377;{props.actualPrice}
                         </p>
                         <p className="ml-auto text-sm font-medium text-green-500">{props.discountPercentage}% off</p>
                     </div>

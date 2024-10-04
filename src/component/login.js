@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
+
 
 function Login() {
     const [isLogin, setIsLogin] = useState(true);
@@ -12,6 +14,10 @@ function Login() {
     const [confirm_password, setConfirmPassword] = useState(""); // Correct variable name
     const [username, setUsername] = useState(""); // Correct variable name
     const [errorMessage, setErrorMessage] = useState(""); // State for error message
+
+
+    const navigate = useNavigate();
+
 
     const toggleForm = () => {
         setIsLogin(!isLogin);
@@ -27,20 +33,21 @@ function Login() {
             setErrorMessage('Please fill all fields correctly or passwords do not match');
             return;
         }
-    
+
         let data = isLogin
             ? { phone, password }
-            : { firstname,username, lastname, email, phone, password, confirm_password };
-    
+            : { firstname, username, lastname, email, phone, password, confirm_password };
+
         // Use POST request instead of GET for sensitive data
         $.post(
-            isLogin ? "http://localhost/react-projetcs/ecommerce_main/Ecommerce/src/ajax/login.php" 
-                    : "http://localhost/react-projetcs/ecommerce_main/Ecommerce/src/ajax/signup.php",
+            isLogin ? "http://localhost/reactAp/ecommere_react_with_php/src/ajax/login.php"
+                : "http://localhost/reactAp/ecommere_react_with_php/src/ajax/signup.php",
             data,
             function (response) {
                 if (response.success) {
                     setErrorMessage(""); // Clear error message on success
                     alert(response.message);
+                    isLogin ? navigate('/') : navigate('/login');
                     console.log(username);
                     console.log(response);
                 } else {
@@ -58,21 +65,21 @@ function Login() {
                 <h2 className="text-2xl font-bold text-center mb-6">{isLogin ? 'Login' : 'Signup'}</h2>
 
                 <form onSubmit={handleSubmit}>
+                    {!isLogin && (
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstname">
+                                Username
+                            </label>
+                            <input
+                                onChange={e => setUsername(e.target.value)}
+                                type="text"
+                                id="firstname"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
+                                placeholder="Enter your First name"
+                            />
+                        </div>
+                    )}
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-5'>
-                        {!isLogin && (
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstname">
-                                    Username
-                                </label>
-                                <input
-                                    onChange={e => setUsername(e.target.value)}
-                                    type="text"
-                                    id="firstname"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
-                                    placeholder="Enter your First name"
-                                />
-                            </div>
-                        )}
                         {!isLogin && (
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstname">

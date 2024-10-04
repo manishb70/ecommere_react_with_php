@@ -65,14 +65,14 @@ const ProductList = () => {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: () => (
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        <button type="button" class="text-blue-700 bg-transparent focus:ring-4 focus:ring-blue-300 text-xl rounded-lg text-sm px-2 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800"><IoEyeOutline /></button>
+                    <a href="#" className="font-medium text-blue-600 hover:underline">
+                        <button type="button" class="text-blue-700 bg-transparent focus:ring-4 focus:ring-blue-300 text-xl rounded-lg text-sm px-2 me-2 mb-2 focus:outline-none"><IoEyeOutline /></button>
 
-                        <button type="button" class="focus:outline-none text-green-700 bg-trasnparent text-xl rounded-lg text-sm px-2 me-2 mb-2 dark:focus:ring-green-600"><FiEdit /></button>
+                        <button type="button" class="focus:outline-none text-green-700 bg-trasnparent text-xl rounded-lg text-sm px-2 me-2 mb-2"><FiEdit /></button>
 
 
 
-                        <button type="button" class="focus:outline-none text-red-700 bg-transparent text-xl rounded-lg text-sm px-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"><RiDeleteBinLine />
+                        <button type="button" class="focus:outline-none text-red-700 bg-transparent text-xl rounded-lg text-sm px-2"><RiDeleteBinLine />
                         </button>
 
 
@@ -87,8 +87,8 @@ const ProductList = () => {
 
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-md bg-gray-100 md:px-7 mt-5 w-80 mx-auto border-y border-gray-400 md:w-full">
-            <table {...getTableProps()} className="w-full text-sm whitespace-nowrap text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table {...getTableProps()} className="w-full text-sm whitespace-nowrap text-left rtl:text-right text-gray-500">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
@@ -103,7 +103,7 @@ const ProductList = () => {
                     {rows.map(row => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <tr {...row.getRowProps()} className="bg-white border-b">
                                 {row.cells.map(cell => (
                                     <td {...cell.getCellProps()} className="px-5 py-4">
                                         {cell.render('Cell')}

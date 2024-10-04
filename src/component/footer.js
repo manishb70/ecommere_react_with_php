@@ -86,6 +86,7 @@ function Footer() {
 
                     <div className="text-center py-5 bg-[#F3F4F6] border-t-2">
                         <p className='text-gray-900 text-sm'>© 2024 Bhatia Emporium. All rights reserved.</p>
+                        <p className='text-gray-900 text-sm mt-3'>Powered By <strong>Algo2bots Infotech.</strong></p>
                     </div>
                 </footer>
             </div>
