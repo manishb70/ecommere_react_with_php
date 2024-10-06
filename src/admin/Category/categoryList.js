@@ -1,77 +1,81 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTable } from 'react-table';
 import { IoEyeOutline } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
-
-
+import $ from "jquery";
+import ApiURl from '../../controllers/Api';
 
 
 const CategoryList = () => {
-    const data = React.useMemo(
-        () => [
-            {
-                name: 'Apron with Cap',
-                productId: '#67766',
-                quantity:'1,698',
-                price: '₹ 2,999',
-                sale: '1,290',
-                stockDate: '20 Nov 2023',
-            },
-            {
-                name: 'Kia cover',
-                productId: '#99996',
-                quantity:'1,929',
-                price: '₹ 1,999',
-                sale: '1,567',
-                stockDate: '20 Nov 2023',
-            },
-            {
-                name: 'Table cover',
-                productId: '#675787',
-                quantity:'4,567',
-                price: '₹ 99',
-                sale: '2,789',
-                stockDate: '20 Nov 2023',
-            },
-        ],
-        []
-    );
+    const [catData, setCatData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await $.getJSON(`${ApiURl}/getCatData.php`);
+                setCatData(response.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        
+
+        fetchData();
+    }, []);
+
+    const data = React.useMemo(() => catData, [catData]);
 
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Category name',
-                accessor: 'name',
+                Header: 'S.NO',
+                accessor: 'category_id',
+            },
+            
+            {
+                Header: 'category_name',
+                accessor: 'category_name',
             },
             {
-                Header: 'Quantity',
-                accessor: 'quantity',
+                Header: 'Main category name',
+                accessor: 'main_category_name',
             },
             {
-                Header: 'Sale',
-                accessor: 'sale',
+                Header: 'Main category ID',
+                accessor: 'main_cat_id',
             },
-            {
-                Header: 'Start Date',
-                accessor: 'stockDate',
-            },
+            // {
+            //     Header: 'Start Date',
+            //     accessor: 'stockDate',
+            // },
             {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: () => (
-                    <a href="#" className="font-medium text-blue-600 hover:underline">
-                        <button type="button" class="text-blue-700 bg-transparent focus:ring-4 focus:ring-blue-300 text-xl rounded-lg text-sm px-2 me-2 mb-2 focus:outline-none"><IoEyeOutline /></button>
-
-                        <button type="button" class="focus:outline-none text-green-700 bg-trasnparent text-xl rounded-lg text-sm px-2 me-2 mb-2"><FiEdit /></button>
-
-
-                        
-                        <button type="button" class="focus:outline-none text-red-700 bg-transparent text-xl rounded-lg text-sm px-2"><RiDeleteBinLine />
+                    <div>
+                        <button
+                            type="button"
+                            className="text-blue-700 bg-transparent focus:ring-4 focus:ring-blue-300 text-xl rounded-lg text-sm px-2 me-2 mb-2 focus:outline-none"
+                            aria-label="View Category"
+                        >
+                            <IoEyeOutline />
                         </button>
-
-                         
-                    </a>
+                        <button
+                            type="button"
+                            className="focus:outline-none text-green-700 bg-transparent text-xl rounded-lg text-sm px-2 me-2 mb-2"
+                            aria-label="Edit Category"
+                        >
+                            <FiEdit />
+                        </button>
+                        <button
+                            type="button"
+                            className="focus:outline-none text-red-700 bg-transparent text-xl rounded-lg text-sm px-2"
+                            aria-label="Delete Category"
+                        >
+                            <RiDeleteBinLine />
+                        </button>
+                    </div>
                 ),
             },
         ],

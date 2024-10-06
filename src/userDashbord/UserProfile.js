@@ -1,6 +1,59 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import $ from 'jquery';
+import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 const ProfileSection = () => {
+
+      const [userData,setUserData]     = useState({})  
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    
+      // Check if the token is valid by making an API call
+
+        let token = localStorage.getItem('token');
+      
+      $.ajax({
+        url: "http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/getUser.php",
+        method: "GET",
+        
+        data: {
+
+          token: token
+          
+        }
+      })
+      .done((response) => {
+        console.log(response);
+
+
+        if (response.success) {
+
+
+
+
+        setUserData(response.ver_user);
+
+
+        }
+
+
+
+
+        
+      })
+      .fail((error) => {
+        console.log(error) // Handle error in API call
+      });
+  
+  }, [])
+
+
+
+
+  console.log(userData);
+
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg mt-5 mx-3 md:mx-6">
       <h2 className="text-2xl font-semibold mb-4">Profile</h2>
@@ -16,8 +69,8 @@ const ProfileSection = () => {
 
         {/* User Information */}
         <div className="flex-1 mt-4 md:mt-0">
-          <h3 className="text-xl font-semibold text-gray-800">Karan Singh</h3>
-          <p className="text-gray-600">karan@gmail.com</p>
+          <h3 className="text-xl font-semibold text-gray-800">{userData.firstname +" "+ userData.lastname}</h3>
+          <p className="text-gray-600">{userData.email}</p>
 
           {/* Edit Profile Button */}
           <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
@@ -30,24 +83,24 @@ const ProfileSection = () => {
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Username */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <h4 className="text-gray-700 font-semibold">First Name</h4>
-          <p className="text-gray-600 mt-1">Karan</p>
+          <h4 className="text-gray-700 font-semibold">First  Name </h4>
+          <p className="text-gray-600 mt-1">{userData.firstname}</p>
         </div>
 
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <h4 className="text-gray-700 font-semibold">Last Name</h4>
-          <p className="text-gray-600 mt-1">Singh</p>
+          <p className="text-gray-600 mt-1">{userData.lastname}</p>
         </div>
 
         {/* Phone Number */}
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <h4 className="text-gray-700 font-semibold">Phone Number</h4>
-          <p className="text-gray-600 mt-1">+91 - 9876543210</p>
+          <p className="text-gray-600 mt-1">+91 - {userData.phone}</p>
         </div>
 
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
           <h4 className="text-gray-700 font-semibold">Email</h4>
-          <p className="text-gray-600 mt-1">karan@gmail.com</p>
+          <p className="text-gray-600 mt-1">{userData.email}</p>
         </div>
 
         {/* Address */}

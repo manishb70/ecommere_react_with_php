@@ -1,39 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTable } from 'react-table';
 import { IoEyeOutline } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
+import $ from 'jquery';
+import ApiURl from '../../controllers/Api';
 
 const ProductList = () => {
-    const data = React.useMemo(
-        () => [
-            {
-                name: 'Apron with Cap',
-                productId: '#67766',
-                quantity: '1,698',
-                price: '₹ 2,999',
-                sale: '1,290',
-                stock: 'Out of stock',
-            },
-            {
-                name: 'Kia cover',
-                productId: '#99996',
-                quantity: '1,929',
-                price: '₹ 1,999',
-                sale: '1,567',
-                stock: 'Out of stock',
-            },
-            {
-                name: 'Table cover',
-                productId: '#675787',
-                quantity: '4,567',
-                price: '₹ 99',
-                sale: '2,789',
-                stock: 'In stock',
-            },
-        ],
-        []
-    );
+    const [productList, setProductList] = useState([]); // Initialize as an empty array
+    const [loading, setLoading] = useState(true); // For loading state
+    const [error, setError] = useState(null); // For error state
+    
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await $.getJSON(`${ApiURl}/getProducts.php`);
+                
+                if (data.success) {
+                    setProductList(data.products);
+                } else {
+                    throw new Error('Failed to fetch products.');
+                }
+            } catch (err) {
+                console.error("Error fetching products:", err);
+                setError(err.message);
+            } finally {
+                setLoading(false); // Ensure loading state is turned off
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    const data = React.useMemo(() => productList, [productList]); // Add dependency on productList
 
     const columns = React.useMemo(
         () => [
@@ -43,7 +43,7 @@ const ProductList = () => {
             },
             {
                 Header: 'Product Id',
-                accessor: 'productId',
+                accessor: 'product_id',
             },
             {
                 Header: 'Price',
@@ -51,43 +51,57 @@ const ProductList = () => {
             },
             {
                 Header: 'Quantity',
-                accessor: 'quantity',
+                accessor: 'stock_quantity',
             },
             {
-                Header: 'Sale',
-                accessor: 'sale',
+                Header: 'Catgegory ID',
+                accessor: 'category_id',
             },
             {
-                Header: 'Stock',
-                accessor: 'stock',
+                Header: 'Category name',
+                accessor: 'category_name',
+            },
+            {
+                Header: 'Created date',
+                accessor: 'created_at',
             },
             {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: () => (
-                    <a href="#" className="font-medium text-blue-600 hover:underline">
-                        <button type="button" class="text-blue-700 bg-transparent focus:ring-4 focus:ring-blue-300 text-xl rounded-lg text-sm px-2 me-2 mb-2 focus:outline-none"><IoEyeOutline /></button>
-
-                        <button type="button" class="focus:outline-none text-green-700 bg-trasnparent text-xl rounded-lg text-sm px-2 me-2 mb-2"><FiEdit /></button>
-
-
-
-                        <button type="button" class="focus:outline-none text-red-700 bg-transparent text-xl rounded-lg text-sm px-2"><RiDeleteBinLine />
+                    <div>
+                        <button type="button" className="text-blue-700 bg-transparent text-xl rounded-lg px-2 me-2 mb-2">
+                            <IoEyeOutline />
                         </button>
-
-
-                    </a>
+                        <button type="button" className="text-green-700 bg-transparent text-xl rounded-lg px-2 me-2 mb-2">
+                            <FiEdit />
+                        </button>
+                        <button type="button" className="text-red-700 bg-transparent text-xl rounded-lg px-2">
+                            <RiDeleteBinLine />
+                        </button>
+                    </div>
                 ),
             },
         ],
         []
     );
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+        columns,
+        data,
+    });
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-md bg-gray-100 md:px-7 mt-5 w-80 mx-auto border-y border-gray-400 md:w-full">
-            <table {...getTableProps()} className="w-full text-sm whitespace-nowrap text-left rtl:text-right text-gray-500">
+            <table {...getTableProps()} className="w-full text-sm whitespace-nowrap text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
@@ -100,18 +114,26 @@ const ProductList = () => {
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {rows.map(row => {
-                        prepareRow(row);
-                        return (
-                            <tr {...row.getRowProps()} className="bg-white border-b">
-                                {row.cells.map(cell => (
-                                    <td {...cell.getCellProps()} className="px-5 py-4">
-                                        {cell.render('Cell')}
-                                    </td>
-                                ))}
-                            </tr>
-                        );
-                    })}
+                    {rows.length > 0 ? (
+                        rows.map(row => {
+                            prepareRow(row);
+                            return (
+                                <tr {...row.getRowProps()} className="bg-white border-b">
+                                    {row.cells.map(cell => (
+                                        <td {...cell.getCellProps()} className="px-5 py-4">
+                                            {cell.render('Cell')}
+                                        </td>
+                                    ))}
+                                </tr>
+                            );
+                        })
+                    ) : (
+                        <tr>
+                            <td colSpan={columns.length} className="px-5 py-4 text-center">
+                                No products available
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>
