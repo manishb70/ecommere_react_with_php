@@ -15,7 +15,7 @@ function Products(props) {
                 
                <Link 
 
-                    to={'/ProductOverview'}
+                    to={`/ProductOverview/${props.product_id}`}
 
                > <img className="h-48 w-full object-cover object-center"
                     src={props.productImages} alt="Product Image" />

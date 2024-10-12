@@ -13,12 +13,13 @@ import KitchenApron from './ProductViewPage/KitchenApronView';
 import ProductOverview from './component/ProductsOverview';
 import Wishlist from './component/Wishlist';
 import WashingMachineView from './ProductViewPage/WashingMachineCoverView';
-import Cart from './component/cart';
+import Cart from './component/Cart';
 import Checkout from './component/checkout';
 import Receipt from './component/Receipt';
 import UserSidebar from './userDashbord/UserSidebar';
 import DashboardMain from './admin/DashboardMain';
 import Error from './component/Error';
+
 import ForgotPassword from './component/ForgetPassword';
 import ProtectedRoute from './protectedRoutes/ProtectedRoute';
 import Products from './ProductViewPage/Products';
@@ -45,6 +46,7 @@ ReactDom.render(
           <Route path="/cart/checkout/receipt" element={<ProtectedRoute element={Receipt} />} />
           <Route path="/dashboard" element={<ProtectedRoute element={UserSidebar} />} />
           <Route path="/admin" element={<ProtectedRoute element={DashboardMain} />} />
+          <Route path="/cart" element={<ProtectedRoute element={Cart} />} />
 
           <Route path="*" element={<Error />} />
         </Route>

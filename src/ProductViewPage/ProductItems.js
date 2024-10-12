@@ -54,8 +54,8 @@ console.log("products"+products);
                             products.map((product,index) =>{
 
                                 return(
-                                <Link to="/ProductOverview">
-                                <Products key={index}  categoryName='Table Cover' productImages={`http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/images/${product.img_path}`} productName={product.name} discountPrice={product.price} actualPrice={499} discountPercentage={20} />
+                                <Link to={`/ProductOverview/${product.product_id}`}>
+                                <Products key={index} product_id={product.product_id}  categoryName='Table Cover' productImages={`http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/images/${product.img_path}`} productName={product.name} discountPrice={product.price} actualPrice={499} discountPercentage={20} />
                                 </Link>
                                 )
                             })

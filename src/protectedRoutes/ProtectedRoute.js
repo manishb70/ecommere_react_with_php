@@ -8,6 +8,12 @@ const ProtectedRoute = ({ element: Element }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // `null` for loading state
   const token = localStorage.getItem('token');
 
+
+
+  console.log(`Bearer ${token}`); 
+
+
+
   useEffect(() => {
     if (token) {
       // Check if the token is valid by making an API call

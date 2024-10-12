@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img1 from '../Apron/Jeana-Apron.png'
 import img2 from '../Apron/apron with cap and checks.png'
 import img3 from '../Fridge Top Cover/Bristly Fridge Top.png'
 import img4 from '../Fridge Top Cover/Flock.png'
 import { Link } from "react-router-dom";
+import $ from 'jquery';
+import ApiURl from "../controllers/Api";
+import imgLocation from "../controllers/imagePath";
+
 
 
 function Cart() {
+
+    const [cartId, setCartid] = useState(localStorage.getItem('cart_id'));
+
+    const [cart,setCart] = useState([]);
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await $.getJSON(
+              `${ApiURl}/getCartItems.php?cart_id=${cartId}`
+            );
+            setCart(response.data);
+            console.log(cart);
+        
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+    
+
+
+
+
+
 
     return (
 
@@ -19,10 +52,19 @@ function Cart() {
                     <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                         <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                             <div className="space-y-6">
+
+                                {   cart.map((prodcuct ,index)=> {
+                                    
+
+
+
+                                        return(
+
+                                                                            
                                 <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                                     <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                         <a href="#" className="shrink-0 md:order-1">
-                                            <img className="md:h-24 md:w-24 w-full h-60" src={img1} alt="imac image" />
+                                            <img className="md:h-24 md:w-24 w-full h-60" src={`http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/images/${prodcuct.img_path}`} alt="imac image" />
                                         </a>
 
                                         <label htmlFor="counter-input" className="sr-only">Choose quantity:</label>
@@ -42,14 +84,14 @@ function Cart() {
                                                 </button> */}
                                             </div>
                                             <div className="text-end md:order-4 md:w-32">
-                                                <p className="text-base font-bold text-gray-900">&#x20b9;2,500</p>
+                                                <p className="text-base font-bold text-gray-900">&#x20b9;{prodcuct.total}</p>
                                             </div>
                                         </div>
                                         <div>
-                                            <a href="#" className="text-xs font-bold text-gray-700 hover:underline">#2901</a>
+                                            <a href="#" className="text-xs font-bold text-gray-700 hover:underline">#{prodcuct.cart_item_id}</a>
                                         </div>
                                         <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                            <a href="#" className="text-base font-bold text-gray-900">Jeana Apron</a>
+                                            <a href="#" className="text-base font-bold text-gray-900">{prodcuct.name}</a>
 
                                             <div>
                                                 <span href="#" className="block text-xs text-gray-700">Size : 40 x 40</span>
@@ -67,162 +109,10 @@ function Cart() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                    <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                        <a href="#" className="shrink-0 md:order-1">
-                                            <img className="md:h-24 md:w-24 w-full h-60" src={img2} alt="imac image" />
-                                        </a>
-
-                                        <label for="counter-input" className="sr-only">Choose quantity:</label>
-                                        <div className="flex items-center justify-between md:order-3 md:justify-end">
-                                            <div className="flex items-center">
-                                                {/* <button type="button" id="decrement-button-2" data-input-counter-decrement="counter-input-2" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                    <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                        <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
-                                                    </svg>
-                                                </button> */}
-
-                                                <span className="text-xs bg-gray-50 text-black h-9 flex items-center w-12 justify-center">Qty : </span>
-                                                <input type="text" id="counter-input" data-input-counter className="w-14 shrink-0 border-0 bg-gray-50 text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="0" required />
-
-
-                                                {/* <input type="text" id="counter-input-2" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value="1" required /> */}
-                                                {/* <button type="button" id="increment-button-2" data-input-counter-increment="counter-input-2" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                    <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                        <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                                    </svg>
-                                                </button> */}
-                                            </div>
-                                            <div className="text-end md:order-4 md:w-32">
-                                                <p className="text-base font-bold text-gray-900">&#x20b9;3,500</p>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <a href="#" className="text-xs font-bold text-gray-700 hover:underline">#1276</a>
-                                        </div>
-                                        <div className="w-full min-w-0 flex-1 space-y-3 md:order-2 md:max-w-md">
-                                            <a href="#" className="text-base font-bold text-gray-900">Kitchen Apron Check with Cap</a>
-                                            <div>
-                                                <span href="#" className="block text-xs text-gray-700">Size : 32 x 32</span>
-                                                {/* <span href="#" className="text-xs text-gray-700">Color : Blue</span> */}
-                                            </div>
-
-                                            <div className="flex items-center gap-4">
-                                                <button type="button" className="inline-flex underline items-center text-xs text-gray-600 hover:underline">
-                                                    Add to Wishlist
-                                                </button>
-                                                <button type="button" className="inline-flex underline items-center text-xs text-red-600 hover:underline">
-                                                    Remove
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                    <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                        <a href="#" className="shrink-0 md:order-1">
-                                            <img className="md:h-24 md:w-24 w-full h-60" src={img3} alt="imac image" />
-                                        </a>
-
-                                        <label for="counter-input" className="sr-only">Choose quantity:</label>
-                                        <div className="flex items-center justify-between md:order-3 md:justify-end">
-                                            <div className="flex items-center">
-                                                {/* <button type="button" id="decrement-button-2" data-input-counter-decrement="counter-input-2" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                    <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                        <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
-                                                    </svg>
-                                                </button> */}
-
-                                                <span className="text-xs bg-gray-50 text-black h-9 flex items-center w-12 justify-center">Qty : </span>
-                                                <input type="text" id="counter-input" data-input-counter className="w-14 shrink-0 border-0 bg-gray-50 text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="0" required />
-
-
-                                                {/* <input type="text" id="counter-input-2" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value="1" required /> */}
-                                                {/* <button type="button" id="increment-button-2" data-input-counter-increment="counter-input-2" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                    <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                        <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                                    </svg>
-                                                </button> */}
-                                            </div>
-                                            <div className="text-end md:order-4 md:w-32">
-                                                <p className="text-base font-bold text-gray-900">&#x20b9;1,500</p>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <a href="#" className="text-xs font-bold text-gray-700 hover:underline">#9866</a>
-                                        </div>
-                                        <div className="w-full min-w-0 flex-1 space-y-3 md:order-2 md:max-w-md">
-                                            <a href="#" className="text-base font-bold text-gray-900">Fridge Top Cover</a>
-                                            <div>
-                                                <span href="#" className="block text-xs text-gray-700">Color : Blue</span>
-                                                {/* <span href="#" className="text-xs text-gray-700">Color : Blue</span> */}
-                                            </div>
-
-                                            <div className="flex items-center gap-4">
-                                                <button type="button" className="inline-flex underline items-center text-xs text-gray-600 hover:underline">
-                                                    Add to Wishlist
-                                                </button>
-                                                <button type="button" className="inline-flex underline items-center text-xs text-red-600 hover:underline">
-                                                    Remove
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                    <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                        <a href="#" className="shrink-0 md:order-1">
-                                            <img className="md:h-24 md:w-24 w-full h-60 " src={img4} alt="imac image" />
-                                        </a>
-
-                                        <label for="counter-input" className="sr-only">Choose quantity:</label>
-                                        <div className="flex items-center justify-between md:order-3 md:justify-end">
-                                            <div className="flex items-center">
-                                                {/* <button type="button" id="decrement-button-2" data-input-counter-decrement="counter-input-2" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                    <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                        <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
-                                                    </svg>
-                                                </button> */}
-
-                                                <span className="text-xs bg-gray-50 text-black h-9 flex items-center w-12 justify-center">Qty : </span>
-                                                <input type="text" id="counter-input" data-input-counter className="w-14 shrink-0 border-0 bg-gray-50 text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="0" required />
-
-
-                                                {/* <input type="text" id="counter-input-2" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value="1" required /> */}
-                                                {/* <button type="button" id="increment-button-2" data-input-counter-increment="counter-input-2" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
-                                                    <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                        <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                                    </svg>
-                                                </button> */}
-                                            </div>
-                                            <div className="text-end md:order-4 md:w-32">
-                                                <p className="text-base font-bold text-gray-900">&#x20b9;1,000</p>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <a href="#" className="text-xs font-bold text-gray-700 hover:underline">#4346</a>
-                                        </div>
-                                        <div className="w-full min-w-0 flex-1 space-y-3 md:order-2 md:max-w-md">
-                                            <a href="#" className="text-base font-bold text-gray-900">Flock Fridge Top Cover</a>
-                                            <div>
-                                                <span href="#" className="block text-xs text-gray-700">Color : Red</span>
-                                                {/* <span href="#" className="text-xs text-gray-700">Color : Blue</span> */}
-                                            </div>
-
-                                            <div className="flex items-center gap-4">
-                                                <button type="button" className="inline-flex underline items-center text-xs text-gray-600 hover:underline">
-                                                    Add to Wishlist
-                                                </button>
-                                                <button type="button" className="inline-flex underline items-center text-xs text-red-600 hover:underline">
-                                                    Remove
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                )
+                                
+                            })
+                              }
 
 
 

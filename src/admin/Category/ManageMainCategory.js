@@ -4,6 +4,8 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import $ from "jquery";
+import ApiURl from '../../controllers/Api';
+
 
 const MainCategoryList = () => {
     const [catData, setCatData] = useState([]);
@@ -11,7 +13,7 @@ const MainCategoryList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await $.getJSON("http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/getMainCategory.php");
+                const response = await $.getJSON(`${ApiURl}/getMainCategory.php`);
                 setCatData(response.data);
             } catch (error) {
                 console.error("Error fetching data:", error);

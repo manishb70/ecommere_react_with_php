@@ -16,29 +16,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-    if(isset($_GET['mainCatId'])){
+    if (isset($_GET['mainCatId'])) {
 
         $mainCatId = $_GET['mainCatId'];
 
 
 
         $query = "SELECT * FROM ecommerce_model.products a 
-join ecommerce_model.categories b on a.category_id = b.category_id  
+            join ecommerce_model.categories b on a.category_id = b.category_id  
 
- join ecommerce_model.main_category c on b.main_cat_id = c.id
+            join ecommerce_model.main_category c on b.main_cat_id = c.id
  
- where c.id=$mainCatId
-order by product_id desc;";
+        where c.id=$mainCatId
+        order by product_id desc;";
+    } elseif(isset($_GET['product'])){
 
-    }else{
-
-    $query = "SELECT * FROM ecommerce_model.products a 
-join ecommerce_model.categories b on a.category_id = b.category_id  
-
- join ecommerce_model.main_category c on b.main_cat_id = c.id
-
-order by product_id desc;;";
         
+        $product = $_GET['product'];
+
+        $query = "SELECT * FROM ecommerce_model.products a 
+            join ecommerce_model.categories b on a.category_id = b.category_id  
+
+            join ecommerce_model.main_category c on b.main_cat_id = c.id
+ 
+        where a.product_id=$product
+        order by product_id desc;";
+
+    }
+    
+    
+    
+    else {
+
+        $query = "SELECT * FROM ecommerce_model.products a 
+            join ecommerce_model.categories b on a.category_id = b.category_id  
+
+            join ecommerce_model.main_category c on b.main_cat_id = c.id
+
+            order by product_id desc;;";
     }
 
 
