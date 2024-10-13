@@ -69,6 +69,8 @@ function Login() {
 
           localStorage.setItem('token', response.token);
           localStorage.setItem('cart_id', response.cart_id);
+          
+          localStorage.setItem('user_id', response.session["user_id"]);
 
           isLogin ? navigate("/dashboard") : navigate("/login");
         } else {

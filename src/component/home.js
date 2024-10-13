@@ -16,6 +16,7 @@ import Slider from "./Slider";
 import { Link } from "react-router-dom";
 import Layout from "../pages/Layout";
 import ApiURl from "../controllers/Api";
+import imgLocation from "../controllers/imagePath";
 
 
 function Home() {
@@ -54,7 +55,7 @@ function Home() {
           return (
             <Link to={`/Products/${row.id}`} key={row.id} className="w-80">
               <Category
-                img={`http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/images/${row.sample_image}`}
+                img={`${imgLocation}/${row.sample_image}`}
                 productsName={row.category_name}
               />
             </Link>

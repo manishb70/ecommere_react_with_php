@@ -30,6 +30,7 @@ import CherryCover from '../Table Cover/cherry_cover_40_60.png'
 import KumkumPanel from '../Table Cover/kumkum_panel_40_60.jpg'
 import Leather from '../Table Cover/leather_emboss_40_60.jpg'
 import { Link } from "react-router-dom";
+import imgLocation from "../controllers/imagePath";
 
 
 
@@ -55,7 +56,7 @@ console.log("products"+products);
 
                                 return(
                                 <Link to={`/ProductOverview/${product.product_id}`}>
-                                <Products key={index} product_id={product.product_id}  categoryName='Table Cover' productImages={`http://localhost/react-projetcs/ecommerce_main/newEcomm/src/ajax/images/${product.img_path}`} productName={product.name} discountPrice={product.price} actualPrice={499} discountPercentage={20} />
+                                <Products key={index} product_id={product.product_id}  categoryName='Table Cover' productImages={`${imgLocation}/${product.img_path}`} productName={product.name} discountPrice={product.price} actualPrice={499} discountPercentage={20} />
                                 </Link>
                                 )
                             })

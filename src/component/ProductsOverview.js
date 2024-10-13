@@ -95,6 +95,10 @@ const ProductOverview = () => {
             <h3 className="text-gray-700 font-semibold">Product Description:</h3>
             <p className="text-gray-600 mt-2">{product.description}</p>
           </div>
+          <div className="mb-4 flex mt-5">
+            <h5 className="text-gray-700 font-semibold">Size:</h5>
+            <p className="text-gray-600 mt-2">{product.size}</p>
+          </div>
 
           {/* Action Buttons */}
           <div className="flex space-x-4 mt-6">
